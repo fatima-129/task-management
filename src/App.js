@@ -8,10 +8,10 @@ import Sidebar from "./components/Sidebar";
 function App() {
   return (
     <div class="container">
+      <Sidebar />
       <div class="container_right_side">
         <Navbar />
         <Cards />
-        <Sidebar />
       </div>
     </div>
   );

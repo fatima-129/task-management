@@ -2,7 +2,7 @@ import React from "react";
 
 function Navbar() {
   return (
-    <div className="container_right_side_navbar">
+    <div className="navbar_container">
       <h1>Platform Lunch</h1>
       <div className="nav_button">
         <button>+ Add New Task</button>

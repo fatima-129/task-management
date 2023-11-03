@@ -2,10 +2,10 @@ import React from "react";
 
 const sidebar = () => {
   return (
-    <div className="container_left_side">
+    <div className="sidebar_container">
       <h1>Kanban</h1>
       <h4>ALL BOARDS (8)</h4>
-      <div className="resturant_details">
+      <div className="sidebar_links">
         <h5>Platform Lunch</h5>
         <h5>Marketing Plan</h5>
         <h5>Roadmap</h5>
