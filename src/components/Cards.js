@@ -1,71 +1,29 @@
 import React from "react";
 import TaskCard from "./TaskCard";
 
-const Cards = () => {
+const Cards = ({ cardsData }) => {
   return (
     <div className="container_right_side_bottom">
       <div className="detail">
         <h1>TODO (4)</h1>
-
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"0 of 3 subtasks"}
-        />
-
-        <TaskCard title={"Build UI for search"} desc={"0 of 2 subtasks"} />
-        <TaskCard title={"Build UI for search"} desc={"0 of 2 subtasks"} />
+        {cardsData["Todo"].map((item, idx) => (
+          <TaskCard key={idx} title={item.title} desc={item.desc} />
+        ))}
       </div>
 
       <div className="detail">
         <h1>DOING (6)</h1>
-
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"0 of 1 subtasks"}
-        />
-
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"0 of 2 subtasks"}
-        />
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"0 of 3 subtasks"}
-        />
-
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"0 of 3 subtasks"}
-        />
+        {cardsData["Doing"].map((item, idx) => (
+          <TaskCard key={idx} title={item.title} desc={item.desc} />
+        ))}
       </div>
 
       <div className="detail">
         <h1>DONE (8)</h1>
 
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"3 of 3 subtasks"}
-        />
-
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"0 of 3 subtasks"}
-        />
-
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"2 of 3 subtasks"}
-        />
-
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"1 of 3 subtasks"}
-        />
-
-        <TaskCard
-          title={"Build UI for enboarding flow"}
-          desc={"0 of 3 subtasks"}
-        />
+        {cardsData["Done"].map((item, idx) => (
+          <TaskCard key={idx} title={item.title} desc={item.desc} />
+        ))}
       </div>
     </div>
   );

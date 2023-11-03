@@ -90,8 +90,12 @@ h5:hover {
   align-items: center;
 }
 .nav_button > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   height: 5vh;
-  width: 120px;
+  width: 150px;
   color: white;
   background-color: #645ec6;
   border-radius: 30px;
