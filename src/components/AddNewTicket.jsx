@@ -1,48 +1,60 @@
-import React, { useState } from "react";
+import React from "react";
 
+import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./AddNewTicket.module.css";
 
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    title: yup.string().required("Title is required").min(6),
+    desc: yup.string().required("Description is required").min(8),
+    status: yup.string().required("Status is required"),
+  })
+  .required();
+
 const AddNewTicket = ({ setCardsData, close }) => {
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [status, setStatus] = useState("Todo");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const setValue = (setFunc) => (e) => setFunc(e.target.value);
-
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
+  const onSubmit = (data) => {
+    const { title, desc, status } = data;
     const newTicket = { title, desc };
     setCardsData((pre) => ({ ...pre, [status]: [newTicket, ...pre[status]] }));
     close();
+    toast.success("New Ticket Add Suceessfully");
   };
 
   return (
-    <form onSubmit={handleSubmitForm} className={s.container}>
+    <form onSubmit={handleSubmit(onSubmit)} className={s.container}>
       <h2 className={s.title}>Add New Task</h2>
       <div className={s.input_container}>
         <h3>Title</h3>
-        <input
-          type="text"
-          placeholder="Enter Task Title"
-          onChange={setValue(setTitle)}
-        />
+        <input placeholder="Enter Task Title" {...register("title")} />
+        <p className={s.error}>{errors.title?.message}</p>
       </div>
       <div className={s.input_container}>
         <h3>Description</h3>
-        <textarea
-          type="text"
-          placeholder="Enter Task Description"
-          onChange={setValue(setDesc)}
-        />
+        <textarea placeholder="Enter Task Description" {...register("desc")} />
+        <p className={s.error}>{errors.desc?.message}</p>
       </div>
       <div className={s.input_container}>
         <h3>Status</h3>
 
-        <select onChange={setValue(setStatus)}>
+        <select defaultValue={""} {...register("status")}>
+          <option value="">Select Status</option>
           <option value="Todo">Todo</option>
           <option value="Doing">Doing</option>
           <option value="Done">Done</option>
         </select>
+        <p className={s.error}>{errors.status?.message}</p>
       </div>
       <button type="submit" className={s.button}>
         Create Task
