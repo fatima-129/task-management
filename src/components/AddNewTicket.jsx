@@ -3,9 +3,11 @@ import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./AddNewTicket.module.css";
 
+import { addDoc, collection } from "@firebase/firestore";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import * as yup from "yup";
+import { db } from "../firebase";
 
 const schema = yup
   .object({
@@ -15,7 +17,7 @@ const schema = yup
   })
   .required();
 
-const AddNewTicket = ({ setCardsData, close }) => {
+const AddNewTicket = ({ close }) => {
   const {
     register,
     handleSubmit,
@@ -24,12 +26,23 @@ const AddNewTicket = ({ setCardsData, close }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { title, desc, status } = data;
-    const newTicket = { title, desc };
-    setCardsData((pre) => ({ ...pre, [status]: [newTicket, ...pre[status]] }));
-    close();
-    toast.success("New Ticket Add Suceessfully");
+    try {
+      const docRef = await addDoc(collection(db, "tickets"), {
+        title,
+        desc,
+        status,
+      });
+      toast.success("New Ticket Add Suceessfully");
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Post Error - ", error);
+    }
+    // const newTicket = { title, desc };
+    // setCardsData((pre) => ({ ...pre, [status]: [newTicket, ...pre[status]] }));
+    // close();
+    // toast.success("New Ticket Add Suceessfully");
   };
 
   return (

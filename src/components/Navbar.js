@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import AddNewTicket from "./AddNewTicket";
 import ModalUI from "./ModalUI";
 
-function Navbar({ setCardsData }) {
+function Navbar() {
   const [openModal, setOpenModal] = useState(false);
   const toggleModal = () => setOpenModal(!openModal);
 
   return (
     <div className="navbar_container">
       <ModalUI open={openModal} close={toggleModal}>
-        <AddNewTicket setCardsData={setCardsData} close={toggleModal} />
+        <AddNewTicket close={toggleModal} />
       </ModalUI>
 
       <h1>Platform Lunch</h1>

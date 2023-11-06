@@ -1,19 +1,23 @@
 import React from "react";
 import TaskCard from "./TaskCard";
 
-const Cards = ({ cardsData }) => {
+const Cards = ({ tickets }) => {
+  const Todo = tickets.filter((d) => d.status === "Todo");
+  const Doing = tickets.filter((d) => d.status === "Doing");
+  const Done = tickets.filter((d) => d.status === "Done");
+
   return (
     <div className="container_right_side_bottom">
       <div className="detail">
         <h1>TODO (4)</h1>
-        {cardsData["Todo"].map((item, idx) => (
+        {Todo.map((item, idx) => (
           <TaskCard key={idx} title={item.title} desc={item.desc} />
         ))}
       </div>
 
       <div className="detail">
         <h1>DOING (6)</h1>
-        {cardsData["Doing"].map((item, idx) => (
+        {Doing.map((item, idx) => (
           <TaskCard key={idx} title={item.title} desc={item.desc} />
         ))}
       </div>
@@ -21,7 +25,7 @@ const Cards = ({ cardsData }) => {
       <div className="detail">
         <h1>DONE (8)</h1>
 
-        {cardsData["Done"].map((item, idx) => (
+        {Done.map((item, idx) => (
           <TaskCard key={idx} title={item.title} desc={item.desc} />
         ))}
       </div>
